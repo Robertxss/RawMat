@@ -1,113 +1,106 @@
+'use client';
+import React, {useState} from "react";
+import Navbar from "./components/Navbar";
+import MaterialSelector from "./components/MaterialSelector";
+import Footer from "./components/Footer";
 import Image from "next/image";
+import { motion } from "framer-motion";
+import ScaleSVG from "./components/ScaleSVG";
+import Modal from "./components/Modal";
+import MesterBody from "./components/MesterContent/MesterBody";
 
 export default function Home() {
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState(null);
+
+  const openModal = (content: any) => {
+    setModalContent(content);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setModalContent(null);
+  };
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <>
+      <Navbar />
+      <main className="flex min-h-screen flex-col items-center justify-between px-8">
+        <div className="hero flex h-screen w-full justify-center flex-col">
+          <h1 className=" text-4xl sm:text-6xl font-bold mb-5">
+            Materie primă de calitate, <br />
+            aproape de tine
+          </h1>
+          <ScaleSVG />
+          <div className="buttons-hero mt-10 flex gap-4 items-center">
+            <a href="#material" className="button-primary font-medium">
+              Vezi oferta
+            </a>
+            <a href="#team" className="button-secondary font-medium">
+              Cine suntem?
+            </a>
+          </div>
         </div>
-      </div>
+        <MaterialSelector />
+        <section id="mester" className="home-mester mt-48 w-full">
+          <h3 className="text-2xl sm:text-4xl font-bold text-center">
+            Ai nevoie de meșteri de încredere?
+          </h3>
+          <p className=" text-2xl sm:text-4xl font-bold mb-16 text-center">I-am găsit noi!</p>
+          <div className="section-content w-full flex sm:flex-row flex-col items-center mt-5">
+            <div className="sm:w-[60%] w-full flex flex-col gap-7 items-center px-0 sm:px-12 sm:mb-0 mb-10">
+              <p className="px-4 text-center font-medium">
+                Pentru orice fel de lucrari, alege echipa pentru nevoile tale.
+                De la lucrari precedente la tarif transparent toti meșterii sunt
+                verificați sa fie ce trebe.
+              </p>
+              <a className="button-primary font-medium max-w-max cursor-pointer"  onClick={() =>
+              openModal(<MesterBody />)}>
+                Găsește meșteri
+              </a>
+            </div>
 
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+            <div className="image-home-mester sm:w-[40%] w-full" />
+          </div>
+        </section>
+        <section id="team" className="meet-the-team w-full mt-48">
+          <div className="title-meet-the-team flex items-center gap-4">
+            <p className="text-4xl font-medium">Echipa</p>
+            <div className="logo text-4xl font-medium">
+              <span className="logo-start">Raw </span>
+              <span className="logo-end">Mat</span>
+            </div>
+          </div>
+          <div className="section-content w-full flex items-center mt-20 md:flex-row flex-col">
+            <div className="image-home-team w-full md:w-[60%]" />
+            <div className="md:w-[40%] w-full flex flex-col gap-7 md:px-12 px-0 md:mt-0 mt-10">
+              <p className=" font-medium">
+                Suntem un grup de programatori, designeri si constructori care
+                am vazut un lucru care lipseste in piata: Transparenta
+                costurilor materiei prime de calitate cat si un serviciu care sa
+                faca achizitionarea de materiale usoara.
+              </p>
+              <a className="button-primary font-medium max-w-max cursor-pointer">
+                Vezi echipa
+              </a>
+            </div>
+          </div>
+        </section>
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
+        <p className="mt-48 font-medium md:w-[60%]">
+          Verificam calitatea materialelor fiecarui aprovizionator inainte de
+          inregistrarea acestuia pe platforma noasta. Mai apoi, continuam cu
+          controale periodice pentru a asigura buna functionare a sistemului.
+        </p>
+        <a className="button-primary font-medium max-w-max mt-5 cursor-pointer">
+          Vezi procesul
         </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+      </main>
+      <Footer />
+      <Modal isOpen={isModalOpen} onClose={closeModal}>
+        {modalContent}
+      </Modal>    </>
   );
 }
